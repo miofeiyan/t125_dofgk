@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đếm ngược thời gian</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      
+      color: white;
+    }
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.8);
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 3em;
+      font-weight: bold;
+      background: rgba(0,0,0,0.2);
+      padding: 20px 40px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted play loop id="bgVideo">
+    <source src="y2mate.gg - Evangelion 30 46h  Third Impact_360.mp4" type="video/mp4" />
+    Trình duyệt không hỗ trợ video nền.
+  </video>
+  <h1>Đếm ngược đến 08:00 - 16/07/2025</h1>
+  <div id="countdown">00:00:00</div>
+  
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const deadline = new Date("2025-07-16");
+      deadline.setHours(7, 59, 59, 999);
+
+      const diff = deadline - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "Đã hết thời gian!";
+        clearInterval(interval);
+        return;
+      }
+
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").textContent =
+        String(hours).padStart(2, '0') + ":" +
+        String(minutes).padStart(2, '0') + ":" +
+        String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown(); // Gọi lần đầu
+    const interval = setInterval(updateCountdown, 1000); // Cập nhật mỗi giây
+  </script>
+</body>
+</html>
